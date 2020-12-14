@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Dec 10 21:24:26 2020
 
-@author: Soo
-"""
+'''
+Main.py
+
+1. 얼굴 정면 인식기 및 모델 다운로드
+2. 카메라 구동
+
+
+'''
 
 
 # pip install opencv-python 
@@ -14,16 +18,23 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 import os
+
+
+########################################
+# 1. 얼굴 정면 인식기 및 모델 다운로드
+########################################
+
+## 1) Set working directory
 os.chdir("C:/ITWILL/5_Tensorflow/workspace/AI Interview App/Scripts")
 
-
-'''
+## 2) Directory 'files' 생성
 !if not exist "./files" mkdir files
-# Download Face detection XML 
+
+## 3) Download Face detection XML - 얼굴 정면 인식기
 !curl -L -o ./files/haarcascade_frontalface_default.xml https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml
-# Download emotion trained data
+
+## 4) Download emotion trained data - 학습된 모델 다운로드
 !curl -L -o ./files/emotion_model.hdf5 https://mechasolution.vn/source/blog/AI-tutorial/Emotion_Recognition/emotion_model.hdf5
-'''
 
 
 # Face detection XML load and trained model loading
@@ -31,6 +42,10 @@ face_detection = cv2.CascadeClassifier('files/haarcascade_frontalface_default.xm
 emotion_classifier = load_model('files/emotion_model.hdf5', compile=False)
 EMOTIONS = ["Angry", "Disgusting", "Fearful", "Happy", "Sad", "Surprising", "Neutral"]
 
+
+#################
+# 2. 카메라 구동
+#################
 
 # Video capture using webcam
 camera = cv2.VideoCapture(0)
